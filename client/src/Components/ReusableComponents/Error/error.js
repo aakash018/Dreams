@@ -4,7 +4,6 @@ function Error({ errorMessage }) {
   const style = {
     fontSize: "2rem",
     color: "red",
-    position: "absolute",
   };
 
   return (

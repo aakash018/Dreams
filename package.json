@@ -6,14 +6,17 @@
   "scripts": {
     "rStart": "cd client && npm start",
     "devStart": "nodemon server.js",
+    "startApp": "concurrently \"npm run rStart\" \"npm run devStart\"",
     "start": "node server.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
   }

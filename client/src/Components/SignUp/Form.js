@@ -9,10 +9,13 @@ import "./form.css";
 //import logo from "../../ReusableComponents/dream.svg";
 
 function Form() {
-  const [input, setInput] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    display: false,
+    errorMessage: "",
+  });
 
   const handleChange = (data, setValue) => {
     setValue(data);
@@ -20,14 +23,23 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (input === "" || password === "" || email === "") {
-      setError(true);
+    if (username === "" || password === "" || email === "") {
+      setError({
+        display: true,
+        errorMessage: "Some filds are empty",
+      });
     } else {
       if (!new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(email)) {
-        setError(true);
+        setError({
+          display: true,
+          errorMessage: "Not a valid email",
+        });
       } else {
-        setError(false);
-        await axios.post("/api/signup", { input, password, email });
+        setError({
+          display: true,
+          errorMessage: "",
+        });
+        await axios.post("/api/signup", { username, password, email });
       }
     }
   };
@@ -36,7 +48,7 @@ function Form() {
     <div className="formContainer">
       <form>
         <div className="errorContainer">
-          {error && <Error errorMessage="Error" />}
+          {error.display && <Error errorMessage={error.errorMessage} />}
         </div>
         <div className="inputField">
           <Input
@@ -44,7 +56,7 @@ function Form() {
             lable="Name"
             type="text"
             onchange={handleChange}
-            stateToUpdate={setInput}
+            stateToUpdate={setUsername}
           />
         </div>
         <div className="inputField">

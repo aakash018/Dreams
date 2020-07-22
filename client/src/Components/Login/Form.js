@@ -7,7 +7,10 @@ import Error from "../ReusableComponents/Error/error";
 function Form() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({
+    display: false,
+    errorMessage: "",
+  });
 
   const handleChange = (data, setState) => {
     setState(data);
@@ -16,9 +19,15 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (username === "" || password === "") {
-      setError(true);
+      setError({
+        display: true,
+        errorMessage: "Fields are Empty",
+      });
     } else {
-      setError(false);
+      setError({
+        display: false,
+        errorMessage: "",
+      });
       axios.post("/api/login", { username, password });
     }
     console.log(error);
@@ -26,7 +35,7 @@ function Form() {
 
   return (
     <div>
-      {error && <Error errorMessage="Error" />}
+      {error.display && <Error errorMessage={error.errorMessage} />}
       <form>
         <Input
           lableFor="Username"
