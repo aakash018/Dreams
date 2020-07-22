@@ -4,7 +4,7 @@
   "description": "A dream Journal",
   "main": "index.js",
   "scripts": {
-    "rStart": "cd newproject && npm start",
+    "rStart": "cd client && npm start",
     "devStart": "nodemon server.js",
     "start": "node server.js"
   },
