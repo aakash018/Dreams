@@ -1,0 +1,46 @@
+.whyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 150px 10vh 10vh 10vh;
+  height: 50vh;
+}
+
+.why_dream_journal {
+  width: 80%;
+}
+
+.why_dream_journal section {
+  margin: 30px;
+  font-size: 1.7rem;
+  font-family: var(--defult-font);
+  line-height: 30px;
+}
+
+.why_dream_journal section li {
+  font-weight: bolder;
+  list-style: none;
+}
+
+@media screen and (max-width: 720px) {
+  .whyContainer {
+    margin-top: 260px;
+    margin-left: 20px;
+    width: 90%;
+  }
+  .why_dream_journal {
+    width: 400px;
+  }
+
+  .why_dream_journal section {
+    font-size: 1.5rem;
+    font-family: var(--defult-font);
+    line-height: 30px;
+  }
+
+  .why_dream_journal h2 {
+    font-size: 2.3rem;
+    margin: 30px;
+  }
+}

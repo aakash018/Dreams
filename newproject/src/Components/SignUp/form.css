@@ -1,0 +1,24 @@
+.formContainer {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorContainer {
+  margin: 0 0 0 50px;
+}
+
+.inputField {
+  margin: 50px;
+}
+
+button {
+  margin: 50px;
+}
