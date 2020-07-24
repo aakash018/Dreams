@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Input from "../ReusableComponents/Input/input";
@@ -11,6 +11,10 @@ function Form() {
     display: false,
     errorMessage: "",
   });
+
+  useEffect(() => {
+    axios.get("/api/login");
+  }, []);
 
   const handleChange = (data, setState) => {
     setState(data);
@@ -28,9 +32,10 @@ function Form() {
         display: false,
         errorMessage: "",
       });
-      axios.post("/api/login", { username, password });
+      axios
+        .post("/api/login", { username, password })
+        .then((res) => console.log(res.data));
     }
-    console.log(error);
   };
 
   return (

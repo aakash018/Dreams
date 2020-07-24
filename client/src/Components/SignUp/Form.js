@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Input from "../ReusableComponents/Input/input";
@@ -17,12 +18,15 @@ function Form() {
     errorMessage: "",
   });
 
+  const history = useHistory();
+
   const handleChange = (data, setValue) => {
     setValue(data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (username === "" || password === "" || email === "") {
       setError({
         display: true,
@@ -39,6 +43,7 @@ function Form() {
           display: true,
           errorMessage: "",
         });
+        history.push("/home");
         await axios.post("/api/signup", { username, password, email });
       }
     }
