@@ -8,7 +8,6 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
-const flash = require("express-flash");
 const PORT = 5000;
 
 const singup = require("./api/signup");
@@ -27,7 +26,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
 mongoose.connect(
   process.env.DATABASE_URI,

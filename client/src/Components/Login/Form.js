@@ -34,7 +34,12 @@ function Form() {
       });
       axios
         .post("/api/login", { username, password })
-        .then((res) => console.log(res.data));
+        .then((res) =>
+          setError({ display: true, errorMessage: res.data.password })
+        )
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
