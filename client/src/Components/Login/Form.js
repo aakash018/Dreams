@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import Input from "../ReusableComponents/Input/input";
 import Error from "../ReusableComponents/Error/error";
 
-function Form() {
+//import UserHome from "../../Pages/userPage/Home";
+
+function Form({ handleAuth }) {
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let status = false;
   const [error, setError] = useState({
     display: false,
     errorMessage: "",
   });
 
   useEffect(() => {
-    axios.get("/api/login");
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+    axios
+      .get("/api/login", {
+        cancelToken: source.token,
+      })
+      .then((res) => console.log(res.data));
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   const handleChange = (data, setState) => {
@@ -34,11 +49,19 @@ function Form() {
       });
       axios
         .post("/api/login", { username, password })
-        .then((res) =>
-          setError({ display: true, errorMessage: res.data.password })
-        )
+        .then((res) => {
+          setError({ display: true, errorMessage: res.data.error });
+          status = res.data.status;
+          //console.log(res.data.status);
+          handleAuth(status);
+          status ? history.push("/home") : history.push("/login");
+        })
         .catch((err) => {
           console.log(err);
+          setError({
+            display: true,
+            errorMessage: "Unknown Error! Try again later.",
+          });
         });
     }
   };
