@@ -1,21 +1,20 @@
 import React from "react";
 import "./input.css";
 
-function Input({ lableFor, lable, type, onchange, needed, stateToUpdate }) {
+function Input({ lableFor, lable, stateToUpdate, onchange, type }) {
   const handleChange = (e) => {
     onchange(e.target.value, stateToUpdate);
   };
 
   return (
-    <div>
+    <div className="inputContainer">
       <label htmlFor={lableFor}>
         {lable}
         <input
           type={type}
-          onChange={handleChange}
-          required={needed}
           className="formInnput"
           id={lableFor}
+          onChange={handleChange}
         ></input>
       </label>
     </div>

@@ -4,9 +4,15 @@ import Heading from "../Components/ReusableComponents/Heading/heading";
 import Form from "../Components/Login/Form";
 
 function Login({ checkForAuth }) {
+  const styleForHeading = {
+    marginLeft: "43%",
+  };
+
   return (
     <div>
-      <Heading title="Login" />
+      <div style={styleForHeading}>
+        <Heading title="Login" />
+      </div>
       <Form handleAuth={checkForAuth} />
     </div>
   );

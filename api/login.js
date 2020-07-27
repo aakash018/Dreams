@@ -12,7 +12,7 @@ const message = (message) => {
   errorMessage = message;
 };
 
-//Used ti run InitPassport function and pass it with the equired users
+//Used to run InitPassport function and pass it with the equired users
 const userAuth = async () => {
   try {
     const users = await Users.find();
@@ -30,22 +30,34 @@ const userAuth = async () => {
 //Calling userAuth() every time login page is rendered
 router.get("/", (req, res) => {
   userAuth();
+  res.json({ data: "Updated" });
 });
 
 //Login form land-site
 router.post("/", (req, res, next) => {
-  passport.authenticate("local", (err, user) => {
+  passport.authenticate("local", async (err, user) => {
+    console.log(1);
     //Login Logic
     //Any external errors are set in err
     if (err) return next(err);
     //When user is not found or password is incorrect user is set false
-    if (!user) return res.json({ password: errorMessage });
+    if (!user) {
+      await sleep(3000);
+      return res.json({ error: errorMessage, status: req.isAuthenticated() });
+    }
     //Login when everything is good...
-    req.logIn(user, (err) => {
+    req.logIn(user, async (err) => {
+      await sleep(3000);
       if (err) return next(err);
-      return res.json({ name: "JOe", message: errorMessage });
+      return res.json({ status: req.isAuthenticated() });
     });
   })(req, res, next);
 });
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 module.exports = router;

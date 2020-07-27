@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Work+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +8,9 @@
 
 html {
   font-size: 62.5%;
-  --header-font: "Work Sans", sans-serif;
+  --header-font: "Montserrat", sans-serif;
   --slogan-font: "Handlee", cursive;
   --defult-font: "Poppins", sans-serif;
   --theme-color: rgb(46, 169, 206);
+  --secondary-color: rgb(30, 235, 133);
 }

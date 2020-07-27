@@ -19,7 +19,6 @@ function App() {
   const [status, setStatus] = useState(Cookies.get("isLoggedIn"));
 
   const handleAuth = (recivedStatus) => {
-    console.log("Res: ", recivedStatus);
     if (recivedStatus) {
       recivedStatus = "true";
     } else {
@@ -48,11 +47,11 @@ function App() {
           </Route>
           {status === "true" && (
             <Route path="/home" exact>
-              <UserHome />
+              <UserHome checkForAuth={handleAuth} />
             </Route>
           )}
           <Route path="*" exact>
-            <Home />
+            {status === "true" ? <Redirect to="/home" /> : <Home />}
           </Route>
         </Switch>
       </Router>

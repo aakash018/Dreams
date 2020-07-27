@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express();
 
-const data = {
-  name: "Joe",
-  emotion: "Happy",
-};
-
 router.get("/", (req, res) => {
-  res.send(data);
+  const userData = {
+    name: req.user.username,
+    email: req.user.email,
+  };
+  res.json(userData);
+});
+
+router.post("/", (req, res) => {
+  req.logOut();
+  res.send(req.isAuthenticated());
 });
 
 module.exports = router;

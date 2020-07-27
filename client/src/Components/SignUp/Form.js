@@ -4,6 +4,7 @@ import axios from "axios";
 
 import Input from "../ReusableComponents/Input/input";
 import Error from "../ReusableComponents/Error/error";
+import Button from "../ReusableComponents/Button/button";
 
 import "./form.css";
 
@@ -82,9 +83,7 @@ function Form() {
             stateToUpdate={setPassword}
           />
         </div>
-        <button type="submit" onClick={handleSubmit}>
-          SignUp
-        </button>
+        <Button text="SignUp" action={handleSubmit} />
       </form>
     </div>
   );

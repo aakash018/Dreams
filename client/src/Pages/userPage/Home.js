@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function UserHome() {
-  axios.get("/api/home").then((res) => console.log(res.data));
+import LogOut from "../../Components/UserHome/Logout";
+
+function UserHome({ checkForAuth }) {
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    axios.get("/api/home").then((res) => setEmail(res.data.email));
+  }, []);
 
   return (
     <div>
-      <h2>Joe</h2>
+      <h2>Joe Mama {email}</h2>
+      <LogOut handleAuth={checkForAuth} />
     </div>
   );
 }

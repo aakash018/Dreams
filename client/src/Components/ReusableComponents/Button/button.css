@@ -1,0 +1,21 @@
+.submitButton {
+  cursor: pointer;
+  padding: 0.8rem 5rem;
+  border-radius: 40px;
+  background-color: var(--theme-color);
+  border: none;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  color: white;
+  font-family: var(--defult-font);
+  font-size: 1.5rem;
+}
+
+.submitButton:hover {
+  background-color: var(--secondary-color);
+  color: black;
+}
+
+.submitButton:disabled {
+  background-color: rgb(243, 78, 78);
+}
