@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
+import React from "react";
+//import axios from "axios";
+import NavBar from "../../Components/UserHome/NavBar/Nav-Bar";
 import LogOut from "../../Components/UserHome/Logout";
-
+import PostInput from "../../Components/UserHome/PostInput/postInput";
 function UserHome({ checkForAuth }) {
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    axios.get("/api/home").then((res) => setEmail(res.data.email));
-  }, []);
+  const logoutStyle = {
+    position: "absolute",
+    top: "10px",
+    right: "100px",
+  };
 
   return (
     <div>
-      <h2>Joe Mama {email}</h2>
-      <LogOut handleAuth={checkForAuth} />
+      <NavBar />
+      <div className="userLogOut" style={logoutStyle}>
+        <LogOut handleAuth={checkForAuth} />
+      </div>
+      <PostInput />
     </div>
   );
 }

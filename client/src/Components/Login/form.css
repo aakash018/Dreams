@@ -68,12 +68,12 @@
 }
 
 .loginPageButton {
-  margin-top: -40px;
-  margin-left: 100px;
+  margin-top: 10px;
+  margin-left: 150px;
 }
 
 .loginElement section {
-  margin-top: -90px;
+  margin-top: -20px;
   margin-left: -40px;
   font-size: 1.3rem;
   font-family: var(--defult-font);

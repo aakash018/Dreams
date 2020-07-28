@@ -1,0 +1,22 @@
+.userHeader {
+  position: fixed;
+  min-height: 100vh;
+  width: 80px;
+  background-color: var(--theme-color);
+  display: flex;
+}
+
+.userNav {
+  height: 50vh;
+  width: 100%;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+
+.userHeader .userNav .links {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

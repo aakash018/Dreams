@@ -4,11 +4,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 400px;
+  width: 800px;
   height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.formContainer form {
+  display: grid;
+  margin-top: 80px;
+  grid-template-columns: 400px 400px;
+  grid-template-rows: 100px 100px 100px;
+  grid-row-gap: 50px;
 }
 
 .errorContainer {
@@ -20,6 +25,8 @@
   margin: 50px;
 }
 
-button {
-  margin: 50px;
+.signupButton {
+  grid-column: 1 / 3;
+  align-self: center;
+  justify-self: center;
 }

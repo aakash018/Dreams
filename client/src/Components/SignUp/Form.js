@@ -13,6 +13,7 @@ import "./form.css";
 function Form() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState({
     display: false,
@@ -28,10 +29,20 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username === "" || password === "" || email === "") {
+    if (
+      username === "" ||
+      password === "" ||
+      email === "" ||
+      confirm_password === ""
+    ) {
       setError({
         display: true,
         errorMessage: "Some filds are empty",
+      });
+    } else if (password !== confirm_password) {
+      setError({
+        display: true,
+        errorMessage: "Confirm Password did not match",
       });
     } else {
       if (!new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(email)) {
@@ -41,11 +52,24 @@ function Form() {
         });
       } else {
         setError({
-          display: true,
+          display: false,
           errorMessage: "",
         });
-        history.push("/home");
-        await axios.post("/api/signup", { username, password, email });
+
+        await axios
+          .post("/api/signup", { username, password, email })
+          .then((res) => {
+            if (res.data.success) history.push("/login");
+            else
+              setError({ display: true, errorMessage: res.data.errorMessage });
+          })
+          .catch(() => {
+            setError({
+              display: true,
+              errorMessage:
+                "Internal Error! Try again later or report the error",
+            });
+          });
       }
     }
   };
@@ -58,8 +82,8 @@ function Form() {
         </div>
         <div className="inputField">
           <Input
-            lableFor="name"
-            lable="Name"
+            lableFor="username"
+            lable="Username"
             type="text"
             onchange={handleChange}
             stateToUpdate={setUsername}
@@ -83,7 +107,18 @@ function Form() {
             stateToUpdate={setPassword}
           />
         </div>
-        <Button text="SignUp" action={handleSubmit} />
+        <div className="inputField">
+          <Input
+            lableFor="confirm-password"
+            lable="Confirm Password"
+            type="password"
+            onchange={handleChange}
+            stateToUpdate={setConfirmPassword}
+          />
+        </div>
+        <div className="signupButton">
+          <Button text="SignUp" action={handleSubmit} />
+        </div>
       </form>
     </div>
   );

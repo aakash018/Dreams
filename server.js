@@ -8,7 +8,7 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 const singup = require("./api/signup");
 const login = require("./api/login");
