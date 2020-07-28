@@ -4,6 +4,9 @@
   "description": "A dream Journal",
   "main": "index.js",
   "scripts": {
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "rStart": "cd client && npm start",
     "devStart": "nodemon server.js",
     "startApp": "concurrently \"npm run rStart\" \"npm run devStart\"",

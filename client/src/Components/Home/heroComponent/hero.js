@@ -1,15 +1,14 @@
 import React from "react";
-import video from "./heroVideo.mp4";
+//import video from "./heroVideo.mp4";
 import "./hero.css";
 import { Link } from "react-router-dom";
+import img from "../../../img/heroSection-cover.jpg";
 
 function Hero() {
   return (
     <div className="hero">
-      <div className="video_container">
-        <video loop autoPlay muted>
-          <source src={video} type="video/mp4" />
-        </video>
+      <div className="img_container">
+        <img src={img} alt="cover" />
       </div>
       <div className="heroDesc">
         <h1>Explore Your Dreams</h1>

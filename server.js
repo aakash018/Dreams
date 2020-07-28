@@ -8,7 +8,7 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
-const PORT = 5000;
+const PORT = process.env.PORT || 8000;
 
 const singup = require("./api/signup");
 const login = require("./api/login");
@@ -17,9 +17,13 @@ const userHome = require("./api/userHome");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(__dirname + "/client/build"));
+}
+
 app.use(
   session({
-    secret: "cat",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
