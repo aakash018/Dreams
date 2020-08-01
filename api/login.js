@@ -36,18 +36,17 @@ router.get("/", (req, res) => {
 //Login form land-site
 router.post("/", (req, res, next) => {
   passport.authenticate("local", async (err, user) => {
-    console.log(1);
     //Login Logic
     //Any external errors are set in err
     if (err) return next(err);
     //When user is not found or password is incorrect user is set false
     if (!user) {
-      await sleep(3000);
+      await sleep(000);
       return res.json({ error: errorMessage, status: req.isAuthenticated() });
     }
     //Login when everything is good...
     req.logIn(user, async (err) => {
-      await sleep(3000);
+      await sleep(000);
       if (err) return next(err);
       return res.json({ status: req.isAuthenticated() });
     });

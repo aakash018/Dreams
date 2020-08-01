@@ -1,8 +1,11 @@
-import React from "react";
-//import axios from "axios";
+import React, { useState } from "react";
+
 import NavBar from "../../Components/UserHome/NavBar/Nav-Bar";
 import LogOut from "../../Components/UserHome/Logout";
 import PostInput from "../../Components/UserHome/PostInput/postInput";
+import { Posts } from "../../Components/posts_contex";
+import PostsDreams from "../../Components/UserHome/Posts/posts";
+
 function UserHome({ checkForAuth }) {
   const logoutStyle = {
     position: "absolute",
@@ -10,13 +13,21 @@ function UserHome({ checkForAuth }) {
     right: "100px",
   };
 
+  const [posts, setPosts] = useState([]);
+  const [showInputBox, setShowInputBox] = useState(false);
   return (
     <div>
-      <NavBar />
-      <div className="userLogOut" style={logoutStyle}>
-        <LogOut handleAuth={checkForAuth} />
-      </div>
-      <PostInput />
+      <Posts.Provider
+        value={{ posts, setPosts, showInputBox, setShowInputBox }}
+      >
+        <NavBar />
+        <div className="userLogOut" style={logoutStyle}>
+          <LogOut handleAuth={checkForAuth} />
+        </div>
+
+        <PostInput />
+        <PostsDreams />
+      </Posts.Provider>
     </div>
   );
 }

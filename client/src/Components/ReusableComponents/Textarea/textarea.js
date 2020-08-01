@@ -1,13 +1,14 @@
 import React from "react";
 
-function Textarea({ handleChange }) {
+import "./textarea.css";
+function Textarea({ handleChange, setValue }) {
   const handleInputChange = (e) => {
-    handleChange(e.target.value);
+    handleChange(e.target.value, setValue);
   };
 
   return (
     <div className="inputTextarea">
-      <textarea cols="50" rows="10" onChange={handleInputChange}></textarea>
+      <textarea onChange={handleInputChange}></textarea>
     </div>
   );
 }

@@ -4,6 +4,7 @@
   width: 80px;
   background-color: var(--theme-color);
   display: flex;
+  z-index: 0;
 }
 
 .userNav {

@@ -11,6 +11,8 @@ import "./form.css";
 //import logo from "../../ReusableComponents/dream.svg";
 
 function Form() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
@@ -30,6 +32,8 @@ function Form() {
     e.preventDefault();
 
     if (
+      firstName === "" ||
+      lastName === "" ||
       username === "" ||
       password === "" ||
       email === "" ||
@@ -57,7 +61,13 @@ function Form() {
         });
 
         await axios
-          .post("/api/signup", { username, password, email })
+          .post("/api/signup", {
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
+          })
           .then((res) => {
             if (res.data.success) history.push("/login");
             else
@@ -79,6 +89,24 @@ function Form() {
       <form>
         <div className="errorContainer">
           {error.display && <Error errorMessage={error.errorMessage} />}
+        </div>
+        <div className="inputField">
+          <Input
+            lableFor="firstName"
+            lable="First Name"
+            type="text"
+            onchange={handleChange}
+            stateToUpdate={setFirstName}
+          />
+        </div>
+        <div className="inputField">
+          <Input
+            lableFor="lastName"
+            lable="Last Name"
+            type="text"
+            onchange={handleChange}
+            stateToUpdate={setLastName}
+          />
         </div>
         <div className="inputField">
           <Input

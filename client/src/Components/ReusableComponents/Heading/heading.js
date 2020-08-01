@@ -1,8 +1,19 @@
 import React from "react";
-import "./heading.css";
 
-function Heading({ title }) {
-  return <h2 className="heading">{title}</h2>;
+function Heading({ title, color, fontSize }) {
+  const style = {
+    fontFamily: "var(--defult-font)",
+    fontWeight: "lighter",
+    fontSize: fontSize || "4rem",
+    margin: "30px",
+    color: color || "black",
+  };
+
+  return (
+    <h2 className="heading" style={style}>
+      {title}
+    </h2>
+  );
 }
 
 export default Heading;

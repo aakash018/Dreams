@@ -11,6 +11,8 @@ router.post("/", async (req, res) => {
     if (old_user != null) throw "User Exists";
     const hashPassword = await bcrypt.hash(data.password, 10);
     const user = await new Users({
+      firstName: data.firstName,
+      lastName: data.lastName,
       username: data.username,
       password: hashPassword,
       email: data.email,
@@ -19,7 +21,8 @@ router.post("/", async (req, res) => {
     await user.save();
     res.json({ success: true });
   } catch (error) {
-    res.json({ success: false, errorMessage: error });
+    res.json({ success: false, errorMessage: "User Exists" });
+    console.log(error);
   }
 });
 

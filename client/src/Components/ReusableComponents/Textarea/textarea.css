@@ -1,0 +1,12 @@
+.inputTextarea textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  width: 60vw;
+  max-width: 80vw;
+  height: 5vh;
+  padding: 50px;
+  background-color: rgb(245, 239, 239);
+  font-family: var(--defult-font);
+  text-align: left;
+}

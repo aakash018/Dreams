@@ -1,24 +1,26 @@
 .formContainer {
   position: absolute;
-  top: 55%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   width: 800px;
-  height: 500px;
+  height: 650px;
 }
 
 .formContainer form {
   display: grid;
   margin-top: 80px;
   grid-template-columns: 400px 400px;
-  grid-template-rows: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px 100px;
   grid-row-gap: 50px;
+  position: relative;
 }
 
-.errorContainer {
+.formContainer .errorContainer {
   position: absolute;
-  margin: 0 0 0 50px;
+  top: 0;
+  right: 219px;
 }
 
 .inputField {
@@ -29,4 +31,5 @@
   grid-column: 1 / 3;
   align-self: center;
   justify-self: center;
+  margin-top: 50px;
 }

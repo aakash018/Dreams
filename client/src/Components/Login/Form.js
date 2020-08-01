@@ -56,7 +56,7 @@ function Form({ handleAuth }) {
           status = res.data.status;
           //console.log(res.data.status);
           handleAuth(status);
-          status ? history.push("/home") : history.push("/login");
+          status ? history.push("/user/home") : history.push("/login");
         })
         .catch((err) => {
           console.log(err);

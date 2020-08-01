@@ -13,6 +13,13 @@
   transition: all 0.5s ease-in;
   font-size: 1.5rem;
   font-family: var(--defult-font);
+  background-color: transparent;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(209, 207, 207);
+  opacity: 1; /* Firefox */
 }
 
 .inputContainer input:focus {

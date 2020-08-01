@@ -3,10 +3,16 @@
   height: 50px;
   background-color: rgb(226, 226, 226);
   border-radius: 50%;
+  position: relative;
+  transition: background 0.4s ease-in-out;
 }
 
-.buttonWraper {
-  position: relative;
+.customButton {
+  cursor: pointer;
+}
+
+.customButton .buttonWraper:hover {
+  background-color: var(--secondary-color);
 }
 
 .buttonWraper section {
@@ -15,4 +21,5 @@
   left: 50%;
   transform: translate(-50%, -55%);
   font-size: 4.6rem;
+  user-select: none;
 }

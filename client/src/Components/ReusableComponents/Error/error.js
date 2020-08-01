@@ -1,14 +1,15 @@
 import React from "react";
 
-function Error({ errorMessage }) {
+function Error({ errorMessage, color }) {
   const style = {
-    fontSize: "2rem",
-    color: "red",
+    fontSize: "1.4rem",
+    fontFamily: "var(--defult-font)",
+    color: color || "rgba(245, 19, 49)",
   };
 
   return (
-    <div>
-      <h2 style={style}>{errorMessage}</h2>
+    <div style={style}>
+      <h2>{errorMessage}</h2>
     </div>
   );
 }
