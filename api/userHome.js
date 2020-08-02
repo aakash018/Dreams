@@ -6,11 +6,15 @@ const Users = require("../models/users");
 router.get("/", async (req, res) => {
   try {
     const users = await Users.findOne({ username: req.user.username });
-    res.json({ posts: users.posts });
+    await sleep(3000);
+    res.json({
+      firstName: [req.user.firstName, req.user.lastName],
+      posts: users.posts,
+    });
   } catch (e) {
     res.json({
       status: "error",
-      errorMessage: "Failed to load post ! Try reopening browser",
+      errorMessage: "Failed to load post ! Try relogging in",
     });
   }
 });
@@ -33,17 +37,23 @@ router.post("/", async (req, res) => {
       postedTime: currentTime.toString(),
     });
     await users.save();
-    res.json({
-      status: 200,
+    await sleep(3000);
+    res.status(200).json({
       posts: users.posts,
     });
   } catch (e) {
     res.json({
       status: "error",
-      errorMessage: "Failed to load user! Try reopening browser",
+      errorMessage: "Failed to load user! Try relogging in",
     });
     console.log(e);
   }
 });
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 module.exports = router;

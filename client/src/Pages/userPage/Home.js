@@ -8,9 +8,9 @@ import PostsDreams from "../../Components/UserHome/Posts/posts";
 
 function UserHome({ checkForAuth }) {
   const logoutStyle = {
-    position: "absolute",
+    position: "fixed",
     top: "10px",
-    right: "100px",
+    right: "10vw",
   };
 
   const [posts, setPosts] = useState([]);

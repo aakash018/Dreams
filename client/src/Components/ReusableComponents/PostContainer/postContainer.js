@@ -2,12 +2,20 @@ import React from "react";
 
 import Heading from "../Heading/heading";
 
-function PostContainer({ title, post, name, time }) {
+import "./postContainer.css";
+function PostContainer({ title, post, name, date }) {
   return (
     <div className="postBoxContainer">
-      <Heading fontSize="1.5rem" title={title} color="var(--theme-color)" />
-      <section className="postSection">{post}</section>
-      <section className="nameOfPoster">{name}</section>
+      <section className="nameAndDate">{date}</section>
+      <div className="mainData">
+        <Heading fontSize="1.5rem" title={title} color="var(--theme-color)" />
+        <section className="postSection">
+          <pre>{post}</pre>
+        </section>
+      </div>
+      <section className="nameAndDate">
+        {name[0]} {name[1]}
+      </section>
     </div>
   );
 }

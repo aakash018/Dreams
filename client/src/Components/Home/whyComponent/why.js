@@ -6,7 +6,9 @@ function Why({ getPosition }) {
   return (
     <div className="whyContainer">
       <div className="why_dream_journal">
-        <Heading title="Why You Should Keep a Dream Journal ?" />
+        <section className="why_title">
+          <Heading title="Why You Should Keep a Dream Journal ?" />
+        </section>
         <section className="why_journal_desc">
           <p>
             You might not have given as much thought to is keeping a dream
@@ -22,7 +24,9 @@ function Why({ getPosition }) {
             <li>Interpreting Your Dreams Is Fun</li>
           </ul>
         </section>
-        <Heading title="What is Dreams ? " />
+        <section className="why_title">
+          <Heading title="What is Dreams ? " />
+        </section>
         <section className="what_is_desc">
           <p>
             Dreams is a Web App that lets you make a journal and keep track of

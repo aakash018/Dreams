@@ -5,7 +5,9 @@ import Form from "../Components/Login/Form";
 
 function Login({ checkForAuth }) {
   const styleForHeading = {
-    marginLeft: "43%",
+    textAlign: "center",
+    fontSize: "2.7rem",
+    marginTop: "20px",
   };
 
   return (

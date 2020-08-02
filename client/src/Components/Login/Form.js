@@ -41,7 +41,7 @@ function Form({ handleAuth }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || password === "") {
+    if (username.trim() === "" || password.trim() === "") {
       setError({
         display: true,
         errorMessage: "Fields are Empty",

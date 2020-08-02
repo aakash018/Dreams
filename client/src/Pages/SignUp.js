@@ -5,6 +5,8 @@ import Heading from "../Components/ReusableComponents/Heading/heading";
 function SignUp() {
   const headerStyle = {
     textAlign: "center",
+    fontSize: "2.7rem",
+    marginTop: "30px",
   };
   return (
     <div>

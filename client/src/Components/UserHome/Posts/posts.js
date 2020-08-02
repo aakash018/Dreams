@@ -8,13 +8,10 @@ import { Posts } from "../../posts_contex";
 
 import "./posts.css";
 function PostsDreams() {
-  const style = {
-    position: "absolute",
-    left: "30%",
-  };
-
   //Variables
   const { posts, setPosts } = useContext(Posts);
+  const [firstName, setFirstname] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     display: false,
     errorMessage: "",
@@ -24,18 +21,23 @@ function PostsDreams() {
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
+    setLoading(true);
     axios
       .get("/api/home")
       .then((res) => {
         if (res.data.status === "error") {
+          setLoading(false);
           return setError({
             display: true,
             errorMessage: res.data.errorMessage,
           });
         }
+        setFirstname(res.data.firstName);
         setPosts(res.data.posts.map((post) => post));
+        setLoading(false);
       })
       .catch((e) => {
+        setLoading(false);
         setError({
           display: true,
           errorMessage: "Failed To Load. Try Again",
@@ -47,11 +49,17 @@ function PostsDreams() {
   }, [setPosts]);
 
   return (
-    <div style={style} className="postsContainer">
+    <div className="postsContainer">
+      {loading && <h1 className="postsWraper">Loading</h1>}
       {error.display && <Error errorMessage={error.errorMessage} />}
       {posts.map((post) => (
         <div key={post._id} className="postsWraper">
-          <PostContainer post={post.post} title={post.title} />
+          <PostContainer
+            post={post.post}
+            title={post.title}
+            name={firstName}
+            date={post.postedTime}
+          />
         </div>
       ))}
     </div>

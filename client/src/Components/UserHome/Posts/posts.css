@@ -1,0 +1,10 @@
+.postsContainer {
+  position: absolute;
+  left: 20%;
+  top: 10%;
+}
+
+.postsWraper {
+  margin-bottom: 40px;
+  font-family: var(--theme-font);
+}

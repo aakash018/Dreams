@@ -1,11 +1,8 @@
 import React from "react";
 
-function Heading({ title, color, fontSize }) {
+import "./heading.css";
+function Heading({ title, color }) {
   const style = {
-    fontFamily: "var(--defult-font)",
-    fontWeight: "lighter",
-    fontSize: fontSize || "4rem",
-    margin: "30px",
     color: color || "black",
   };
 

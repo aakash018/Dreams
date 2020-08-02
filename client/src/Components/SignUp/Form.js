@@ -32,12 +32,12 @@ function Form() {
     e.preventDefault();
 
     if (
-      firstName === "" ||
-      lastName === "" ||
-      username === "" ||
-      password === "" ||
-      email === "" ||
-      confirm_password === ""
+      firstName.trim() === "" ||
+      lastName.trim() === "" ||
+      username.trim() === "" ||
+      password.trim() === "" ||
+      email.trim() === "" ||
+      confirm_password.trim() === ""
     ) {
       setError({
         display: true,

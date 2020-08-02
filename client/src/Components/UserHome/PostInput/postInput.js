@@ -15,6 +15,7 @@ import "./postInput.css";
 function PostInput() {
   const { setPosts } = useContext(Posts);
   const { showInputBox, setShowInputBox } = useContext(Posts);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     display: false,
     errorMessage: "",
@@ -29,16 +30,18 @@ function PostInput() {
   };
 
   //Submit Function
-
   const handleSubmit = () => {
     setError({
       display: false,
     });
-    if (postInput === "") {
+
+    if (postInput.trim() === "") {
       return setError({
         display: true,
         errorMessage: "Empty Field",
       });
+    } else {
+      setLoading(true);
     }
 
     axios
@@ -51,6 +54,7 @@ function PostInput() {
             errorMessage: res.data.errorMessage,
           });
         }
+        setLoading(false);
         setPostInput("");
         setPosts(res.data.posts);
         setShowInputBox(false);
@@ -93,7 +97,11 @@ function PostInput() {
           </div>
           <Textarea handleChange={handleInputChange} setValue={setPostInput} />
           <div className="postSubmitButton">
-            <Button action={handleSubmit} text="Post" />
+            <Button
+              action={handleSubmit}
+              text={loading ? "Posting" : "Post"}
+              disable={loading}
+            />
           </div>
         </div>
       )}
