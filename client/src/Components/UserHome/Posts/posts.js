@@ -9,7 +9,7 @@ import { Posts } from "../../posts_contex";
 import "./posts.css";
 function PostsDreams() {
   //Variables
-  const { posts, setPosts } = useContext(Posts);
+  const { posts, setPosts, searchTerm } = useContext(Posts);
   const [firstName, setFirstname] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -48,20 +48,32 @@ function PostsDreams() {
     };
   }, [setPosts]);
 
+  //Function to escape special RegEx characters
+  function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+  }
+
   return (
     <div className="postsContainer">
       {loading && <h1 className="postsWraper">Loading</h1>}
       {error.display && <Error errorMessage={error.errorMessage} />}
-      {posts.map((post) => (
-        <div key={post._id} className="postsWraper">
-          <PostContainer
-            post={post.post}
-            title={post.title}
-            name={firstName}
-            date={post.postedTime}
-          />
-        </div>
-      ))}
+      {posts.map((post) => {
+        if (
+          post.title.match(new RegExp(escapeRegex(searchTerm), "i")) ||
+          searchTerm.trim() === ""
+        ) {
+          return (
+            <div key={post._id} className="postsWraper">
+              <PostContainer
+                post={post.post}
+                title={post.title}
+                name={firstName}
+                date={post.postedTime}
+              />
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }
