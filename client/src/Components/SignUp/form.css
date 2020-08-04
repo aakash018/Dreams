@@ -33,3 +33,25 @@
   justify-self: center;
   margin-top: 50px;
 }
+
+@media screen and (max-width: 720px) {
+  .formContainer {
+    top: 110%;
+    width: 370px;
+    height: 1100px;
+    margin-bottom: 50px;
+  }
+  .formContainer form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    grid-row-gap: 0px;
+  }
+  .inputField {
+    margin: 20px;
+  }
+  .formContainer .errorContainer {
+    right: 35px;
+    top: -20px;
+  }
+}

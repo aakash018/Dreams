@@ -15,8 +15,8 @@ function NavBar() {
       <nav className="userNav">
         <div className="links">
           <Button content="+" action={handleClick} />
-          <Button />
-          <Button />
+          <Button content="&#127760;" />
+          <Button content="&#128100;" />
         </div>
       </nav>
     </header>

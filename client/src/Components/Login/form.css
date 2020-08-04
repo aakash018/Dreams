@@ -78,3 +78,47 @@
   font-size: 1.3rem;
   font-family: var(--defult-font);
 }
+
+@media screen and (max-width: 720px) {
+  .loginFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loginFormWraper {
+    width: 400px;
+    height: 730px;
+    margin-bottom: 50px;
+    flex-direction: column;
+  }
+
+  .welcomeElement {
+    top: 300px;
+  }
+
+  .errorElement {
+    top: 350px;
+    left: 80px;
+  }
+
+  .loginCover {
+    width: 100%;
+  }
+  .loginCover img {
+    height: 80%;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+  }
+
+  .loginElement {
+    align-self: center;
+  }
+
+  .loginElement form {
+    margin-top: 5px;
+  }
+
+  .loginElement section {
+    margin-top: 20px;
+  }
+}

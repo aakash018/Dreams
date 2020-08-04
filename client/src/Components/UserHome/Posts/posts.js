@@ -50,7 +50,7 @@ function PostsDreams() {
 
   //Function to escape special RegEx characters
   function escapeRegex(string) {
-    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    return string.replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
   }
 
   return (
@@ -59,7 +59,7 @@ function PostsDreams() {
       {error.display && <Error errorMessage={error.errorMessage} />}
       {posts.map((post) => {
         if (
-          post.title.match(new RegExp(escapeRegex(searchTerm), "i")) ||
+          post.title.match(new RegExp(escapeRegex(searchTerm.trim()), "i")) ||
           searchTerm.trim() === ""
         ) {
           return (
@@ -73,6 +73,7 @@ function PostsDreams() {
             </div>
           );
         }
+        return "";
       })}
     </div>
   );
