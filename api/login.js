@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express();
-const initilizePassport = require("./passport-config");
+const initilizePassport = require("./config/passport-config");
 const passport = require("passport");
 const Users = require("../models/users");
 
@@ -41,12 +41,12 @@ router.post("/", (req, res, next) => {
     if (err) return next(err);
     //When user is not found or password is incorrect user is set false
     if (!user) {
-      await sleep(000);
+      await sleep(2000);
       return res.json({ error: errorMessage, status: req.isAuthenticated() });
     }
     //Login when everything is good...
     req.logIn(user, async (err) => {
-      await sleep(000);
+      await sleep(2000);
       if (err) return next(err);
       return res.json({ status: req.isAuthenticated() });
     });

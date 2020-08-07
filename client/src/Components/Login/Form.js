@@ -9,6 +9,7 @@ import Button from "../ReusableComponents/Button/button";
 import "./form.css";
 
 import loginCover from "../../img/dreams-cover.jpg";
+import Axios from "axios";
 
 function Form({ handleAuth }) {
   const history = useHistory();
@@ -25,11 +26,17 @@ function Form({ handleAuth }) {
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
-    axios
-      .get("/api/login", {
-        cancelToken: source.token,
-      })
-      .then((res) => console.log(res.data));
+    try {
+      axios
+        .get("/api/login", {
+          cancelToken: source.token,
+        })
+        .then((res) => console.log(res.data));
+    } catch {
+      if (Axios.isCancel()) {
+        console.log("Cancled");
+      }
+    }
     return () => {
       source.cancel();
     };

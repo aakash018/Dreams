@@ -10,7 +10,7 @@ import "./posts.css";
 function PostsDreams() {
   //Variables
   const { posts, setPosts, searchTerm } = useContext(Posts);
-  const [firstName, setFirstname] = useState([]);
+  const [name, setName] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     display: false,
@@ -19,34 +19,64 @@ function PostsDreams() {
 
   //First request to server to get all old the posts
   useEffect(() => {
+    let mounted = true;
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
-    setLoading(true);
-    axios
-      .get("/api/home")
-      .then((res) => {
-        if (res.data.status === "error") {
-          setLoading(false);
-          return setError({
-            display: true,
-            errorMessage: res.data.errorMessage,
+    try {
+      if (posts.length === 0) {
+        setLoading(true);
+        axios
+          .get("/api/home", { cancelToken: source.token })
+          .then((res) => {
+            if (mounted) {
+              if (res.data.status === "error") {
+                setLoading(false);
+                return setError({
+                  display: true,
+                  errorMessage: res.data.errorMessage,
+                });
+              }
+              setName(res.data.firstName);
+              setPosts(res.data.posts.map((post) => post));
+              setLoading(false);
+            }
+          })
+
+          .catch((e) => {
+            if (mounted) {
+              setLoading(false);
+              setError({
+                display: true,
+                errorMessage: "Failed To Load. Try Again",
+              });
+            }
           });
-        }
-        setFirstname(res.data.firstName);
-        setPosts(res.data.posts.map((post) => post));
-        setLoading(false);
-      })
-      .catch((e) => {
-        setLoading(false);
-        setError({
-          display: true,
-          errorMessage: "Failed To Load. Try Again",
-        });
-      });
+      }
+    } catch (e) {
+      if (axios.isCancel(e)) {
+        console.log("CAncle");
+      }
+    }
+
     return () => {
       source.cancel();
+      mounted = false;
     };
-  }, [setPosts]);
+  }, [setPosts, posts.length]);
+
+  //Function to handle Share
+  const handleShare = (post, name) => {
+    axios
+      .post("/api/sharePost", {
+        _id: post._id,
+        name: name,
+        title: post.title,
+        post: post.post,
+        postedTime: post.postedTime,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e));
+  };
 
   //Function to escape special RegEx characters
   function escapeRegex(string) {
@@ -67,9 +97,11 @@ function PostsDreams() {
               <PostContainer
                 post={post.post}
                 title={post.title}
-                name={firstName}
+                name={name}
                 date={post.postedTime}
               />
+              {/* Take post from current itration */}
+              <button onClick={() => handleShare(post, name)}>Share</button>
             </div>
           );
         }

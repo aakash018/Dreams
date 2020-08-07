@@ -10,13 +10,21 @@ import Cookies from "js-cookie";
 import Home from "./Pages/Home";
 import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
-
 import UserHome from "./Pages/userPage/Home";
+import NavBar from "./Components/UserHome/NavBar/Nav-Bar";
+import PostInput from "./Components/UserHome/PostInput/postInput";
+import Global from "./Pages/userPage/Global";
+import { Posts } from "./Components/posts_contex";
 
 import "./App.css";
-//sessionStorage.setItem("isLoggedIn", false);
+
 function App() {
   const [status, setStatus] = useState(Cookies.get("isLoggedIn"));
+
+  const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showInputBox, setShowInputBox] = useState(false);
+  const [sharedPosts, setSharedPosts] = useState([]);
 
   const handleAuth = (recivedStatus) => {
     if (recivedStatus) {
@@ -46,9 +54,25 @@ function App() {
             )}
           </Route>
           {status === "true" && (
-            <Route path="/user/home" exact>
-              <UserHome checkForAuth={handleAuth} />
-            </Route>
+            <Posts.Provider
+              value={{
+                posts,
+                setPosts,
+                showInputBox,
+                setShowInputBox,
+                searchTerm,
+                setSearchTerm,
+                sharedPosts,
+                setSharedPosts,
+              }}
+            >
+              <NavBar />
+              <PostInput />
+              <Route path="/user/home" exact>
+                <UserHome checkForAuth={handleAuth} />
+              </Route>
+              <Route path="/user/global" component={Global} exact />
+            </Posts.Provider>
           )}
           <Route path="*" exact>
             {status === "true" ? <Redirect to="/user/home" /> : <Home />}

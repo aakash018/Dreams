@@ -21,3 +21,15 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
+.logoLink {
+  position: absolute;
+  top: 30px;
+  font-family: var(--slogan-font);
+  font-size: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 900;
+  color: aliceblue;
+  cursor: pointer;
+}
