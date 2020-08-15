@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     const users = await Users.findOne({ username: req.user.username });
     await sleep(2000);
     res.json({
-      firstName: [req.user.firstName, req.user.lastName],
+      name: [req.user.firstName, req.user.lastName],
       posts: users.posts,
     });
   } catch (e) {
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
       postedTime: currentTime.toString(),
     });
     await users.save();
-    //await sleep(3000);
+    // await sleep(3000);
     res.status(200).json({
       posts: users.posts,
     });

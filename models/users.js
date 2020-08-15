@@ -26,6 +26,10 @@ const usersSchema = new mongoose.Schema({
       title: String,
       post: String,
       postedTime: Date,
+      isShared: {
+        type: Boolean,
+        default: false,
+      },
       tags: Array,
     },
   ],

@@ -6,6 +6,7 @@
   border-radius: 10px;
   position: relative;
   border: none;
+  overflow: hidden;
 }
 
 .postBoxContainer .mainData {

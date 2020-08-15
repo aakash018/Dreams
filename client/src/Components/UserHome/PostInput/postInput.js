@@ -13,8 +13,9 @@ import { Posts } from "../../posts_contex";
 import "./postInput.css";
 
 function PostInput() {
-  const { setPosts } = useContext(Posts);
+  const { posts, setPosts } = useContext(Posts);
   const { showInputBox, setShowInputBox } = useContext(Posts);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     display: false,
@@ -22,9 +23,10 @@ function PostInput() {
   });
 
   //Variables
-  const [postInput, setPostInput] = useState("");
-  const [title, setTitle] = useState("");
-
+  const { postInput, setPostInput } = useContext(Posts);
+  const { title, setTitle } = useContext(Posts);
+  const { postId } = useContext(Posts);
+  // setTitle(showInputBox.title);
   const handleInputChange = (input, setValue) => {
     setValue(input);
   };
@@ -35,7 +37,7 @@ function PostInput() {
       display: false,
     });
 
-    if (postInput.trim() === "") {
+    if (postInput.trim() === "" || title.trim() === "") {
       return setError({
         display: true,
         errorMessage: "Empty Field",
@@ -44,38 +46,71 @@ function PostInput() {
       setLoading(true);
     }
 
-    axios
-      .post("/api/home", { title, postInput })
-      //Sends request to save
-      .then((res) => {
-        if (res.data.status === "error") {
-          return setError({
+    if (!showInputBox.isFromEdit) {
+      axios
+        .post("/api/home", { title, postInput })
+        //Sends request to save
+        .then((res) => {
+          if (res.data.status === "error") {
+            return setError({
+              display: true,
+              errorMessage: res.data.errorMessage,
+            });
+          }
+          setLoading(false);
+          setPostInput("");
+          setPosts(res.data.posts);
+          setShowInputBox({ display: false });
+        })
+        .catch((e) => {
+          setError({
             display: true,
-            errorMessage: res.data.errorMessage,
+            errorMessage: "Internal Error! Try again...",
           });
-        }
-        setLoading(false);
-        setPostInput("");
-        setPosts(res.data.posts);
-        setShowInputBox(false);
-      })
-      .catch((e) => {
-        setError({
-          display: true,
-          errorMessage: "Internal Error! Try again...",
+          console.log("Error : ", e);
         });
-        console.log("Error : ", e);
-      });
+    } else {
+      setLoading(true);
+      axios
+        .put("/api/postOptions/edit", { id: postId, title, postInput })
+        .then((res) => {
+          if (res.data.error) {
+            return setError({
+              display: true,
+              errorMessage: res.data.errorMessage,
+            });
+          }
+          const updatedPostAfterEdit = posts.map((element) => {
+            if (element._id === postId) {
+              return res.data.post[0];
+            } else {
+              return element;
+            }
+          });
+          setLoading(false);
+          setPosts(updatedPostAfterEdit);
+          setShowInputBox({ isFromEdit: false });
+        })
+        .catch((e) => {
+          console.log(e);
+          setError({
+            display: true,
+            errorMessage: "Internal Error! Try Again...",
+          });
+        });
+    }
   };
 
   return (
     <div className="postInputContainer">
-      {showInputBox && (
+      {showInputBox.display && (
         <div className="postInputWraper">
           <div className="postInputCancleButton">
             <CustomButton
               action={() => {
-                setShowInputBox(false);
+                setPostInput("");
+                setTitle("");
+                setShowInputBox({ display: false });
                 setError({ display: false });
               }}
               content="&times;"
@@ -93,9 +128,14 @@ function PostInput() {
               onchange={handleInputChange}
               placeholder="Title"
               color="white"
+              value={title}
             />
           </div>
-          <Textarea handleChange={handleInputChange} setValue={setPostInput} />
+          <Textarea
+            handleChange={handleInputChange}
+            setValue={setPostInput}
+            value={postInput}
+          />
           <div className="postSubmitButton">
             <Button
               action={handleSubmit}

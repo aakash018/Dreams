@@ -1,11 +1,13 @@
 import React from "react";
 
 import Heading from "../Heading/heading";
+import DropDownMenu from "../DropDownMenu/dropdown";
 
 import "./postContainer.css";
-function PostContainer({ title, post, name, date }) {
+function PostContainer({ title, post, name, date, showOptions, options }) {
   return (
     <div className="postBoxContainer">
+      {showOptions && <DropDownMenu options={options} />}
       <section className="nameAndDate">{date}</section>
       <div className="mainData">
         <Heading fontSize="1.5rem" title={title} color="var(--theme-color)" />

@@ -10,8 +10,9 @@ function Logout({ handleAuth }) {
   const handleLogout = () => {
     axios.delete("/api/home").then((res) => handleAuth(res.data));
 
-    //To clear post state for new login
+    //To clear state for new login
     setPosts([]);
+    localStorage.removeItem("name");
   };
 
   return (

@@ -9,6 +9,7 @@ function Input({
   type,
   placeholder,
   color,
+  ...rest
 }) {
   const handleChange = (e) => {
     onchange(e.target.value, stateToUpdate);
@@ -23,6 +24,7 @@ function Input({
       <label htmlFor={lableFor}>
         {lable}
         <input
+          {...rest}
           placeholder={placeholder}
           type={type}
           className="formInnput"

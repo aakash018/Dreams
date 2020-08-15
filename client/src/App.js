@@ -23,7 +23,14 @@ function App() {
 
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showInputBox, setShowInputBox] = useState(false);
+  const [showInputBox, setShowInputBox] = useState({
+    display: false,
+    isFromEdit: false,
+  });
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [postInput, setPostInput] = useState("");
+  const [postId, setPostId] = useState("");
   const [sharedPosts, setSharedPosts] = useState([]);
 
   const handleAuth = (recivedStatus) => {
@@ -64,6 +71,14 @@ function App() {
                 setSearchTerm,
                 sharedPosts,
                 setSharedPosts,
+                showConfirmModal,
+                setShowConfirmModal,
+                title,
+                setTitle,
+                postInput,
+                setPostInput,
+                postId,
+                setPostId,
               }}
             >
               <NavBar />

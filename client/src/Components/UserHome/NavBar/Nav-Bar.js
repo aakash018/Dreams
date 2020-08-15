@@ -10,8 +10,7 @@ function NavBar() {
   const history = useHistory();
 
   const handleClick = () => {
-    setShowInputBox(!showInputBox);
-    console.log(showInputBox);
+    setShowInputBox({ display: !showInputBox.display });
   };
 
   const handleGlobalRedirect = () => {

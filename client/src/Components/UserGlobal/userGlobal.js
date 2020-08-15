@@ -22,7 +22,7 @@ function GlobalPosts() {
       if (sharedPosts.length === 0) {
         setLoading(true);
         axios
-          .get("/api/sharePost", { cancelToken: source.token })
+          .get("/api/globalPosts", { cancelToken: source.token })
           .then((res) => {
             if (mounted) {
               if (res.data.error) {
@@ -66,11 +66,13 @@ function GlobalPosts() {
       <div className="postsContainer">
         {sharedPosts.map((sharedPost) => (
           <div key={sharedPost._id} className="sharedPostWraper">
+            {/* {console.log(sharedPost)} */}
             <PostContainer
               date={sharedPost.postedTime}
               name={[sharedPost.firstName, sharedPost.lastName]}
               title={sharedPost.title}
               post={sharedPost.post}
+              showOptions={false}
             />
           </div>
         ))}
