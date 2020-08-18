@@ -20,6 +20,7 @@ function PostsDreams() {
   const { setPostInput } = useContext(Posts);
   const { setShowInputBox } = useContext(Posts);
   const { setPostId } = useContext(Posts);
+  const { setLikedPosts } = useContext(Posts);
 
   //To Show Different MOadls
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
@@ -69,11 +70,13 @@ function PostsDreams() {
               //Saving in LS so the value is not lost after page cchnages
               localStorage.setItem("name", JSON.stringify(res.data.name));
               setPosts(res.data.posts.map((post) => post));
+              setLikedPosts(res.data.likedPosts);
               setLoading(false);
             }
           })
 
           .catch((e) => {
+            console.log(e);
             if (mounted) {
               setLoading(false);
               setError({
@@ -93,7 +96,7 @@ function PostsDreams() {
       source.cancel();
       mounted = false;
     };
-  }, [setPosts, posts.length]);
+  }, [setPosts, posts.length, setLikedPosts]);
 
   //Function to handle Share
   const handleShare = (post, name) => {
@@ -107,6 +110,7 @@ function PostsDreams() {
           title: post.title,
           post: post.post,
           postedTime: post.postedTime,
+          likes: post.likes,
         })
         .then((res) => {
           //Server will return updated post after share and we update the posts state with updatePosts
@@ -266,8 +270,8 @@ function PostsDreams() {
                 showOptions={true}
                 options={{
                   [shared.current]: () => handleShareModal(post, name),
-                  Delete: () => handleDeletModal(post), //handleDelete(post),
                   Edit: () => handelEdit(post),
+                  Delete: () => handleDeletModal(post),
                 }}
               />
             </div>

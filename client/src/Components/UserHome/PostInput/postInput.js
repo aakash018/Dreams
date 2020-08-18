@@ -59,6 +59,7 @@ function PostInput() {
           }
           setLoading(false);
           setPostInput("");
+          setTitle("");
           setPosts(res.data.posts);
           setShowInputBox({ display: false });
         })
@@ -89,10 +90,15 @@ function PostInput() {
           });
           setLoading(false);
           setPosts(updatedPostAfterEdit);
+          setPostInput("");
+          setTitle("");
           setShowInputBox({ isFromEdit: false });
         })
         .catch((e) => {
           console.log(e);
+          setLoading(false);
+          setPostInput("");
+          setTitle("");
           setError({
             display: true,
             errorMessage: "Internal Error! Try Again...",

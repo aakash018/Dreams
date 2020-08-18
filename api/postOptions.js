@@ -16,8 +16,52 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/like", async (req, res) => {
+  const data = req.body;
+
+  const isLiked = req.user.likedPosts.find((likedPost) => {
+    return likedPost == data.id;
+  });
+
+  try {
+    if (isLiked == null) {
+      await SharedPost.updateOne({ _id: data.id }, { likes: data.likes + 1 });
+      await Users.updateOne(
+        { _id: req.user._id },
+        { $push: { likedPosts: data.id } }
+      );
+
+      const oldUser = req.user;
+      oldUser.likedPosts.push(data.id);
+      req.login(oldUser, (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    } else {
+      await SharedPost.updateOne({ _id: data.id }, { likes: data.likes - 1 });
+      await Users.updateOne(
+        { _id: req.user._id },
+        { $pull: { likedPosts: data.id } }
+      );
+
+      const oldUser = req.user;
+      const removeItem = oldUser.likedPosts.indexOf(data.id);
+      oldUser.likedPosts.splice(removeItem, 1);
+      req.login(oldUser, (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
+  } catch (e) {
+    console.log("Error : ", e);
+  }
+});
+
 router.post("/share", async (req, res) => {
   const data = req.body;
+
   try {
     //To creatnew global post
     const sharedPost = new SharedPost({
@@ -26,6 +70,7 @@ router.post("/share", async (req, res) => {
       lastName: data.name[1],
       title: data.title,
       post: data.post,
+      likes: data.likes,
       postedTime: data.postedTime,
     });
     await sharedPost.save();

@@ -6,8 +6,8 @@ const globalSchema = new mongoose.Schema({
   lastName: String,
   title: String,
   post: String,
-  postedTime: Date,
   likes: Number,
+  postedTime: String,
 });
 
 module.exports = mongoose.model("GolbalPosts", globalSchema);

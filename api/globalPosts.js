@@ -6,8 +6,10 @@ const SharedPost = require("../models/globalPost");
 router.get("/", async (req, res) => {
   try {
     const sharedPost = await SharedPost.find();
-
-    res.json(sharedPost);
+    res.json({
+      sharedPost: sharedPost,
+      likedPosts: req.user.likedPosts,
+    });
   } catch (e) {
     console.log(e);
     res

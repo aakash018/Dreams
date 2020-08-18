@@ -21,16 +21,23 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  likedPosts: {
+    type: Array,
+    default: [],
+  },
   posts: [
     {
       title: String,
       post: String,
-      postedTime: Date,
+      postedTime: String,
       isShared: {
         type: Boolean,
         default: false,
       },
-      tags: Array,
+      likes: {
+        type: Number,
+        default: 0,
+      },
     },
   ],
 });

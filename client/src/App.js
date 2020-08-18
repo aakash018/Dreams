@@ -28,10 +28,17 @@ function App() {
     isFromEdit: false,
   });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  //To  Edit and majke new post
   const [title, setTitle] = useState("");
   const [postInput, setPostInput] = useState("");
+
+  //For Sharing POst
   const [postId, setPostId] = useState("");
   const [sharedPosts, setSharedPosts] = useState([]);
+
+  //For Liking post
+  const [likedPosts, setLikedPosts] = useState([]);
 
   const handleAuth = (recivedStatus) => {
     if (recivedStatus) {
@@ -79,6 +86,8 @@ function App() {
                 setPostInput,
                 postId,
                 setPostId,
+                likedPosts,
+                setLikedPosts,
               }}
             >
               <NavBar />

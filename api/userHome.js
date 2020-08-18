@@ -8,6 +8,7 @@ router.get("/", async (req, res) => {
     const users = await Users.findOne({ username: req.user.username });
     await sleep(2000);
     res.json({
+      likedPosts: req.user.likedPosts,
       name: [req.user.firstName, req.user.lastName],
       posts: users.posts,
     });
@@ -30,11 +31,11 @@ router.post("/", async (req, res) => {
   try {
     const users = await Users.findOne({ username: req.user.username });
     if (req.body.postInput == null) throw "Invalid Input";
-    const currentTime = new Date();
+    const currentTime = new Date().toDateString();
     users.posts.push({
       title: req.body.title,
       post: req.body.postInput,
-      postedTime: currentTime.toString(),
+      postedTime: currentTime,
     });
     await users.save();
     // await sleep(3000);
