@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 const PORT = process.env.PORT || 5000;
+const path = require("path");
 
 const singup = require("./api/signup");
 const login = require("./api/login");
@@ -41,6 +42,10 @@ mongoose.connect(
   },
   console.log("Connected with DB")
 );
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 app.use("/api/signup", singup);
 app.use("/api/login", login);
