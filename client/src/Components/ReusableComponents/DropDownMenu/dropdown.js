@@ -15,7 +15,7 @@ function DropDownMenu({ options }) {
       {showMenu && (
         <section className="menuBody">
           {optionsNames.map((optionsName) => (
-            <li
+            <button
               onClick={() => {
                 options[optionsName]();
                 setShowMenu(false);
@@ -23,7 +23,7 @@ function DropDownMenu({ options }) {
               key={optionsNames.indexOf(optionsName)}
             >
               {optionsName}
-            </li>
+            </button>
           ))}
         </section>
       )}

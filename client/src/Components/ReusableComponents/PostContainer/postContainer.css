@@ -1,5 +1,5 @@
 .postBoxContainer {
-  width: 700px;
+  width: 73vw;
   min-height: 180px;
   background-color: #f8f8f8;
   box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.25);
@@ -12,6 +12,10 @@
 .postBoxContainer .mainData {
   margin-top: -30px;
   margin-left: 20px;
+}
+
+.postBoxContainer .postWraper {
+  cursor: pointer;
 }
 
 .postBoxContainer .mainData .heading {
@@ -46,35 +50,74 @@
   min-height: 50px;
 }
 
-.likesSection {
-  width: 40px;
-
-  margin: 10px 0 10px 30px;
+.interactionContainer {
+  width: 20%;
   display: flex;
-  justify-content: space-between;
+  /* background-color: blue; */
+
+  justify-content: space-around;
+
+  align-items: center;
 }
 
-.likesSection .likeButton {
+.interactionWraper {
+  width: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 10px 30px;
+}
+
+.interactionWraper .button {
   font-size: 3rem;
   user-select: none;
   cursor: pointer;
+  color: rgb(172, 172, 172);
 }
 
-.likeButton:hover {
+.interactionWraper .button:hover {
   color: rgb(240, 29, 72);
 }
 
-.likesCount {
+.Count {
   margin: 10px;
   font-size: 2rem;
   color: rgb(240, 125, 148);
   user-select: none;
 }
 
-.likesSection .active {
+.interactionWraper .active {
   color: rgb(241, 65, 100);
 }
 
-.likesSection .not-active {
+.interactionWraper .not-active {
   color: rgb(172, 172, 172);
+}
+
+@media screen and (max-width: 620px) {
+  .postBoxContainer {
+    width: 98vw;
+    min-height: 140px;
+  }
+
+  .postBoxContainer .mainData .heading {
+    font-size: 1.7rem;
+  }
+
+  .postSection pre {
+    font-size: 1.3rem;
+  }
+
+  .likesSection .button {
+    font-size: 2.6rem;
+  }
+
+  .Count {
+    font-size: 1.7rem;
+    margin: 8px;
+  }
+
+  .likesSection {
+    margin-top: 5px;
+  }
 }

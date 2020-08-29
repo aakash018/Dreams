@@ -1,26 +1,30 @@
 import React from "react";
 
-import LogOut from "../../Components/UserHome/Logout";
+import LogOut from "../../../Components/UserHome/Logout";
 
-import SearchBar from "../../Components/UserHome/Search";
+import SearchBar from "../../../Components/UserHome/Search";
 
-import PostsDreams from "../../Components/UserHome/Posts/posts";
+import PostsDreams from "../../../Components/UserHome/Posts/posts";
+
+import "./home.css";
 // import ConfirmModal from "../../Components/UserHome/confimModal";
 // import { Posts } from "../../Components/posts_contex";
 function UserHome({ checkForAuth }) {
-  const logoutStyle = {
-    position: "fixed",
-    top: "10px",
-    right: "10vw",
-  };
+  // const logoutStyle = {
+  //   position: "fixed",
+  //   top: "10px",
+  //   right: "10vw",
+  // };
 
   // const { setShowConfirmModal } = useContext(Posts);
 
   return (
     <div>
-      <SearchBar />
+      <div className="searchContainer">
+        <SearchBar />
+      </div>
       {/* <ConfirmModal /> */}
-      <div className="userLogOut" style={logoutStyle}>
+      <div className="userLogOut">
         <LogOut handleAuth={checkForAuth} />
       </div>
 

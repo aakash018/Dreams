@@ -31,18 +31,20 @@
   overflow: hidden;
 }
 
-.menuContainer .menuBody li {
+.menuContainer .menuBody button {
   font-size: 1.5rem;
   font-family: var(--defult-font);
   padding: 14px 8px 14px 8px;
   list-style: none;
-  width: 92%;
+  width: 100%;
   text-align: center;
   cursor: pointer;
   transition: background 0.35s ease-in;
+  outline: none;
+  border: hidden;
 }
 
-.menuContainer .menuBody li:hover {
+.menuContainer .menuBody button:hover {
   background-color: cornflowerblue;
   color: aliceblue;
 }

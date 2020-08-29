@@ -4,7 +4,7 @@ const router = express();
 const SharedPost = require("../models/globalPost");
 const Users = require("../models/users");
 
-router.get("/", async (req, res) => {
+router.get("/", async (_, res) => {
   try {
     const sharedPost = await SharedPost.find();
     await sleep(2000);
@@ -13,6 +13,29 @@ router.get("/", async (req, res) => {
     res
       .status(404)
       .json({ error: true, errorMessage: "Error 404! No shared Post found" });
+  }
+});
+
+router.get("/postDetails", async (req, res) => {
+  const data = req.query;
+  try {
+    const postToSend = await SharedPost.findOne({ _id: data.id });
+
+    if (postToSend != null) {
+      res.json({
+        post: postToSend.post,
+        comments: postToSend.comments,
+      });
+    } else {
+      res.json({
+        post: "Post Not Shared Yet Or Was Not Found...",
+      });
+    }
+  } catch {
+    res.json({
+      error: true,
+      errorMessage: "Error Oppening Post",
+    });
   }
 });
 
@@ -54,8 +77,27 @@ router.post("/like", async (req, res) => {
         }
       });
     }
+    res.send("Like action done");
   } catch (e) {
     console.log("Error : ", e);
+  }
+});
+
+router.post("/comment", async (req, res) => {
+  const data = req.body;
+  try {
+    const postToCommentOn = await SharedPost.findOne({ _id: data.id });
+    const currentTime = new Date();
+    postToCommentOn.comments.push({
+      id: new Date().getTime(),
+      name: data.name,
+      comment: data.comment,
+      commentedTime: currentTime.toDateString(),
+    });
+    // console.log(postToCommentOn);
+    await postToCommentOn.save();
+  } catch (e) {
+    console.log("Error", e);
   }
 });
 

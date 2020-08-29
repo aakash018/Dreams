@@ -7,6 +7,7 @@ const globalSchema = new mongoose.Schema({
   title: String,
   post: String,
   likes: Number,
+  comments: Array,
   postedTime: String,
 });
 

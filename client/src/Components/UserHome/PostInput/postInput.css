@@ -46,3 +46,14 @@
     transform: translateY(13%);
   }
 }
+
+@media screen and (max-width: 620px) {
+  .titleInput {
+    left: 1.6%;
+    top: 37%;
+  }
+
+  .errorContainer {
+    top: 32%;
+  }
+}

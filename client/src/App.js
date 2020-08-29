@@ -6,14 +6,20 @@ import {
   Redirect,
 } from "react-router-dom";
 import Cookies from "js-cookie";
+//import { library } from "@fortawesome/fontawesome-svg-core";
+//import { faComment } from "@fortawesome/free-solid-svg-icons";
+
+//library.add(faComment);
 
 import Home from "./Pages/Home";
 import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
-import UserHome from "./Pages/userPage/Home";
+import UserHome from "./Pages/userPage/Home/Home";
 import NavBar from "./Components/UserHome/NavBar/Nav-Bar";
 import PostInput from "./Components/UserHome/PostInput/postInput";
 import Global from "./Pages/userPage/Global";
+import PostDetail from "./Components/UserGlobal/postDetails/postDetail";
+// import Post from "./Pages";
 import { Posts } from "./Components/posts_contex";
 
 import "./App.css";
@@ -28,6 +34,7 @@ function App() {
     isFromEdit: false,
   });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  // const [showPostDetail, setShowPostDetail] = useState(false);
 
   //To  Edit and majke new post
   const [title, setTitle] = useState("");
@@ -92,13 +99,20 @@ function App() {
             >
               <NavBar />
               <PostInput />
-              <Route path="/user/home" exact>
-                <UserHome checkForAuth={handleAuth} />
-              </Route>
-              <Route path="/user/global" component={Global} exact />
+              <Route path="*/p/:id" component={PostDetail}></Route>
+              <Switch>
+                <Route path="/user/home">
+                  <UserHome checkForAuth={handleAuth} />
+                </Route>
+                <Route path="/user/global" component={Global} />
+
+                <Route path="/user/*">
+                  {status === "true" ? <Redirect to="/user/home" /> : <Home />}
+                </Route>
+              </Switch>
             </Posts.Provider>
           )}
-          <Route path="*" exact>
+          <Route path="*">
             {status === "true" ? <Redirect to="/user/home" /> : <Home />}
           </Route>
         </Switch>

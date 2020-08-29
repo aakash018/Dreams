@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
+import { useHistory, useLocation } from "react-router-dom";
 
 //Components
 import Error from "../../ReusableComponents/Error/error";
@@ -12,6 +13,9 @@ import "./posts.css";
 import ConfirmModal from "../../UserHome/confimModal";
 
 function PostsDreams() {
+  const history = useHistory();
+  const location = useLocation();
+
   //Variables
   const { posts, setPosts, searchTerm } = useContext(Posts);
 
@@ -212,6 +216,10 @@ function PostsDreams() {
     setShowShareConfirmModal(true);
   };
 
+  const handlePostDetails = (id) => {
+    history.push(location.pathname + `/p/${id}`);
+  };
+
   //Function to escape special RegEx characters
   function escapeRegex(string) {
     return string.replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -268,6 +276,7 @@ function PostsDreams() {
                 name={name}
                 date={post.postedTime}
                 showOptions={true}
+                handlePostDetails={() => handlePostDetails(post._id)}
                 options={{
                   [shared.current]: () => handleShareModal(post, name),
                   Edit: () => handelEdit(post),
