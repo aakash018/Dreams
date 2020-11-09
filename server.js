@@ -43,15 +43,17 @@ mongoose.connect(
   console.log("Connected with DB")
 );
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
 
 app.use("/api/signup", singup);
 app.use("/api/login", login);
 app.use("/api/home", userHome);
 app.use("/api/postOptions", postOptions);
 app.use("/api/globalPosts", globalPosts);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`Server At PORT ${PORT}`);

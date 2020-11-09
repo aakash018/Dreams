@@ -29,6 +29,7 @@ const userAuth = async () => {
 
 //Calling userAuth() every time login page is rendered
 router.get("/", (req, res) => {
+  console.log(111)
   userAuth();
   res.json({ data: "Updated" });
 });
